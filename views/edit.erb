@@ -1,0 +1,10 @@
+<% if @article %>
+  <form action="/<%= @article.id %>" method="post" id="edit">
+    <input type="hidden" name="_method" value="put">
+    <textarea name="body"><%= @article.body %></textarea>
+    <input type="submit">
+  </form>
+  <p><a href="/<%= @article.id %>/delete">Delete</a></p>
+<% else %>
+  <p>Article not found.</p>
+<% end %>

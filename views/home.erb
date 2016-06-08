@@ -1,0 +1,19 @@
+<section id="add">
+  <form action="/" method="post">
+    <textarea name="title" placeholder="Title&hellip;"></textarea>
+    <textarea name="body" placeholder="Article text&hellip;"></textarea>
+    <textarea name="keywords" placeholder="Keywords(optional)&hellip;"></textarea>
+    <textarea name="image_url" placeholder="Url(optional)&hellip;"></textarea>
+    <input type="submit" value="Create!">
+  </form>
+</section>
+ 
+<% @articles.each do |art| %>
+  <article>
+    <p>
+      <%= art.body %>
+      <span><a href="/<%= art.id %>">[edit]</a></span>
+    </p>
+    <p class="meta">Created: <%= art.created_at %></p>
+  </article>
+<% end %>
