@@ -1,17 +1,9 @@
-require "rake/testtask"
-
-Rake::TestTask.new do |t|
-  t.libs = ["lib", "spec"]
-  t.name = "spec"
-  # t.warning = true
-  # t.verbose = true
-  t.test_files = FileList['spec/**/*_spec.rb']
-end
-
-Rake::TestTask.new do |t|
-  t.libs = ["lib", "spec"]
-  t.name = "spec:units"
-  t.test_files = FileList['spec/unit/**/*_spec.rb']
-end
+%w{ rubygems bundler find rake/testtask}.each { |lib| require lib }
 
 task :default => :spec
+
+Rake::TestTask.new(:spec) do |t|
+  t.test_files = FileList['spec/*_spec.rb']
+end
+
+

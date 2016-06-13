@@ -1,14 +1,20 @@
 ENV['RACK_ENV'] = 'test'
 
+require 'bundler'
+
+Bundler.setup
+Bundler.require
+
 require 'rack/test'  
 require_relative '../sinatratest.rb'
 require 'minitest/autorun'
-require 'minitest/rg'
-require 'mocha/mini_test'
+require 'minitest'
+require 'minitest/spec'
+require 'minitest/pride'
 
 include Rack::Test::Methods
 
-def app  
+def app
   Sinatra::Application
 end
 
