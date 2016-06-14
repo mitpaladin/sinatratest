@@ -10,3 +10,6 @@
 /vendor/
 *~
 *.db
+/bin/_guard-core
+/bin/guard
+/bin/rake
