@@ -3,8 +3,6 @@ ENV['RACK_ENV'] = 'test'
 require 'rack/test'  
 require_relative '../sinatratest.rb'
 require 'minitest/autorun'
-require 'minitest/rg'
-require 'mocha/mini_test'
 
 include Rack::Test::Methods
 
