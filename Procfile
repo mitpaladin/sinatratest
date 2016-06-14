@@ -1,2 +1,1 @@
-web: bundle exec ruby test.rb  
-guard: bundle exec guard -i  
+web: bundle exec ruby spec/*_spec.rb  
