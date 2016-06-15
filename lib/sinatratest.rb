@@ -7,18 +7,19 @@ DB = Sequel.connect('sqlite://articles.db')
 
 DB.create_table? :articles do
   primary_key :id
-  String :author_name, :default=>"User1"
+  String :author_name, default: 'User1'
   String :body
   String :title
-  String :keywords, :null=>true
-  String  :image_url, :null=>true
+  String :keywords, null: true
+  String :image_url, null: true
   DateTime :created_at
   DateTime :updated_at
 end
 
+# Sequel model based article
 class Article < Sequel::Model
 end
- 
+
 get '/' do
   @articles = Article.all
   @title = 'All Articles'
@@ -26,22 +27,22 @@ get '/' do
 end
 
 post '/' do
-  n = Article.new do |n|
+  newart = Article.new do |n|
     n.body = params[:body]
     n.title = params[:title]
-    n.author_name = "User1"
+    n.author_name = 'User1'
     n.keywords = params[:keywords]
     n.image_url = params[:image_url]
     n.created_at = Time.now
     n.updated_at = Time.now
   end
-  n.save
+  newart.save
   redirect '/'
 end
 
 get '/:id' do |id|
   @article = Article[id]
-  @title = "Edit article id"
+  @title = 'Edit article id'
   erb :edit
 end
 
@@ -55,7 +56,7 @@ end
 
 get '/:id/delete' do |id|
   @article = Article[id]
-  @title = "Confirm deletion of article ##id"
+  @title = 'Confirm deletion of article ##id'
   erb :delete
 end
 

@@ -1,12 +1,12 @@
 ENV['RACK_ENV'] = 'test'
 
-require 'rack/test'  
-require_relative '../sinatratest.rb'
+require 'rack/test'
+require_relative '../lib/sinatratest.rb'
 require 'minitest/autorun'
 
 include Rack::Test::Methods
 
-def app  
+def app
   Sinatra::Application
 end
 
