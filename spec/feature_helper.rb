@@ -3,11 +3,11 @@ require_relative '../lib/sinatratest.rb'
 
 require 'capybara'
 require 'capybara/dsl'
-require 'capybara/webkit'
+require 'capybara/poltergeist'
 require 'capybara_minitest_spec'
 
 Capybara.app = app
-Capybara.default_driver = :webkit
+Capybara.javascript_driver = :poltergeist
 
 module MiniTest
   class Spec
