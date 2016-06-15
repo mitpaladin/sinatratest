@@ -10,10 +10,13 @@
  
 <% @articles.each do |art| %>
   <article>
-    <p>
-      <%= art.body %>
-      <span><a href="/<%= art.id %>">[edit]</a></span>
-    </p>
+    <p><%= art.title %></p>
+    <p><%= art.body %></p>
+    <p><%= art.author_name %></p>
+    <p><%= art.keywords %></p>
+    <p><%= art.image_url %></p>
+    <p><span><a href="/<%= art.id %>">[edit]</a></span></p>
     <p class="meta">Created: <%= art.created_at %></p>
+    <p class="meta">Updated: <%= art.updated_at %></p>
   </article>
 <% end %>

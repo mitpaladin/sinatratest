@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+source "https://gem.fury.io/jdickey/" do
+  gem 'prolog-use_cases', '~> 0.10'
+end
 
 gem 'sinatra', '~> 1.4', '>= 1.4.7'
 gem 'sequel', '~> 4.35', '>= 4.35.0'
