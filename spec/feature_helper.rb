@@ -9,12 +9,17 @@ require 'capybara_minitest_spec'
 Capybara.app = app
 Capybara.default_driver = :webkit
 
-class MiniTest::Spec
-  include Capybara::DSL
+module MiniTest
+  class Spec
+    include Capybara::DSL
+  end
 end
 
-class Capybara::Session
-  def params
-    Hash[*URI.parse(current_url).query.split(/\?|=|&/)]
+module Capybara
+  # session for feature testing
+  class Session
+    def params
+      Hash[*URI.parse(current_url).query.split(/\?|=|&/)]
+    end
   end
 end
