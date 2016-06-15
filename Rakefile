@@ -5,7 +5,7 @@ require 'flay_task'
 require 'flog'
 require 'flog_task'
 
-Rake::TestTask.new do |t|
+Rake::TestTask.new(:spec) do |t|
   t.libs = ["lib", "spec"]
   t.name = "spec"
   # t.warning = true
@@ -13,10 +13,10 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['spec/**/*_spec.rb']
 end
 
-Rake::TestTask.new do |t|
+Rake::TestTask.new(:feature) do |t|
   t.libs = ["lib", "spec"]
-  t.name = "spec:units"
-  t.test_files = FileList['spec/unit/**/*_spec.rb']
+  t.name = "feature"
+  t.test_files = FileList['spec/feature/**/*_feature.rb']
 end
 
 RuboCop::RakeTask.new(:rubocop) do |task|
@@ -50,6 +50,6 @@ FlogTask.new do |t|
 end
 
 task(:default).clear
-task default: [:spec, :rubocop, :reek, :flay, :flog]
+task default: [:spec, :rubocop, :reek, :flay, :flog, :feature]
 
 

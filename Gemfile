@@ -18,7 +18,7 @@ group :test do
   gem 'minitest', '~> 5.9', '>= 5.9.0'
   gem 'capybara', '~> 2.7', '>= 2.7.1'
   gem 'capybara_minitest_spec', '~> 1.0', '>= 1.0.5'
-  # gem 'capybara-webkit' # depends on Qt, broken last time we checked
+  gem 'capybara-webkit' # depends on Qt, broken last time we checked
   gem 'guard-minitest', '~> 2.4', '>= 2.4.5'
   gem 'poltergeist', '~> 1.9', '>= 1.9.0'
   gem 'rubocop', '0.35.1'
