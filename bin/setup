@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#set -euo pipefail
+# IFS=$'\n\t'
+# set -vx
+APPNAME='sinatratest'
+
+# Do Stuff.
+
+rm -rf .bundle/config vendor/ruby Gemfile.lock
+rmdir vendor 2>/dev/null # harmless if other contents in `vendor`
+
+bundle install --path vendor
+
+# Do any other automated setup that you need to do here
+
+if [[ -d $RBENV_ROOT ]]
+then
+  rbenv rehash
+fi
+
+# Install/update binstubs, enabling 'bin/rake' rather than 'bundle exec rake'.
+
+bundle binstub --force guard rake
+
+# Post-setup introductory remarks go here.
+
+echo ""
+echo "Note that binstubs for guard and for rake have been created in ./bin/;"
+echo "This means that you can run, e.g., bin/rake rather than 'bundle exec rake'."
+echo "Note that these binstubs should be regenerated each time the app is"
+echo "rebundled; certainly when new versions or configurations of those tools"
+echo "have been set. Guard in particular is pretty dumb about auto-detecting"
+echo "changes such as adding new plugin Gems."
+echo ""
+echo "In development, we recommend running Ruby with a medium warning level,"
+echo "with verbose messages, and with debugging enabled. To do so, set the"
+echo "RUBYOPT environment variable as follows:"
+echo "    $export RUBYOPT='-dv -W1'"
