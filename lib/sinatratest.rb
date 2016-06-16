@@ -33,14 +33,18 @@ class ArticleRepo
     @articles
   end
 
+  private
+
   def keywords_to_a
     @articles.each do |art|
-      oldkeywords = art.keywords
-      art.keywords = oldkeywords.split(/,/).map(&:strip)
+      keyword_split(art)
     end
   end
 
-  private
+  def keyword_split(article)
+    oldkeywords = article.keywords
+    article.keywords = oldkeywords.split(/,/).map(&:strip)
+  end
 
   attr_reader :articles
 end
