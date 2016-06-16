@@ -36,7 +36,7 @@ class ArticleRepo
   def keywords_to_a
     @articles.each do |art|
       oldkeywords = art.keywords
-      art.keywords = oldkeywords.split(/,/) || []
+      art.keywords = oldkeywords.split(/,/).map(&:strip)
     end
   end
 
@@ -51,6 +51,7 @@ get '/' do
   rethash = sumobj.call
   @articles = rethash[:articles]
   @title = 'All Articles'
+  @kbf = rethash[:keywords_by_frequency]
   erb :home
 end
 
