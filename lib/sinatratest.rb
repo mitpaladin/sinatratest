@@ -1,10 +1,11 @@
 require 'rubygems'
 require 'sinatra'
 require 'sequel'
-require 'sqlite3'
+require 'pg'
 require 'prolog/use_cases/summarise_content'
+require_relative '../config/environment.rb'
 
-DB = Sequel.connect('sqlite://articles.db')
+DB = Sequel.postgres('sinatratest_db', user: 'sinatratest_db', host: 'localhost', port: 5432)
 
 DB.create_table? :articles do
   primary_key :id

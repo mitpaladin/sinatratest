@@ -1,0 +1,5 @@
+development:
+  adapter: postgresql
+  database: sinatratest_db
+  username: sinatratest_db
+  host: localhost
