@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+if [[ ! -n $1 ]]; then
+  echo "MUST specify database name and database user as parameters in order"
+  exit 1
+fi
+
+if [[ ! -n $2 ]]; then
+  echo "MUST specify database name and database user as parameters in order"
+  exit 2
+fi
+
+DBNAME=$1
+DBUSER=$2
+
+printf "Setting up Postgres database (1/4): dropping existing DB\r"
+dropdb --if-exists $DBNAME
+printf "Setting up Postgres database (2/4): dropping existing DB user\r"
+dropuser $DBUSER
+printf "Setting up Postgres database (3/4): recreating DB role\r"
+createuser -dl $DBUSER
+printf "Setting up Postgres database (4/4): recreating database\r"
+createdb --username=$DBUSER $DBNAME
+printf "%-80s\n" "Setup of Postgres database completed."

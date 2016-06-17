@@ -5,7 +5,8 @@ require 'pg'
 require 'prolog/use_cases/summarise_content'
 require_relative '../config/environment.rb'
 
-DB = Sequel.postgres('sinatratest_db', user: 'sinatratest_db', host: 'localhost', port: 5432)
+DB = Sequel.postgres('sinatratest_db', user: 'sinatratest_db',
+                                       host: 'localhost', port: 5432)
 
 DB.create_table? :articles do
   primary_key :id
@@ -36,18 +37,19 @@ class ArticleRepo
 
   private
 
+  attr_reader :articles
+
   def keywords_to_a
-    @articles.each do |art|
-      keyword_split(art)
+    @articles.each { |article| Internals.keyword_split article }
+  end
+
+  # Methods neither affecting nor affected by instance state.
+  module Internals
+    def self.keyword_split(article)
+      oldkeywords = article.keywords
+      article.keywords = oldkeywords.split(/,/).map(&:strip)
     end
   end
-
-  def keyword_split(article)
-    oldkeywords = article.keywords
-    article.keywords = oldkeywords.split(/,/).map(&:strip)
-  end
-
-  attr_reader :articles
 end
 
 get '/' do

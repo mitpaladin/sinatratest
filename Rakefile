@@ -1,6 +1,7 @@
 require 'rake/testtask'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
+require 'flay'
 require 'flay_task'
 require 'flog'
 require 'flog_task'
@@ -51,5 +52,3 @@ end
 
 task(:default).clear
 task default: [:spec, :rubocop, :reek, :flay, :flog, :feature]
-
-
