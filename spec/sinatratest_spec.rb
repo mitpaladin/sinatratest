@@ -1,8 +1,9 @@
+
 require_relative 'spec_helper'
 
-describe 'my app' do
-  it 'should return a UI' do
+describe 'the main application' do
+  it 'should respond to the HTTP GET method for the root path' do
     get '/'
-    last_response.ok?
+    expect(last_response).must_be :ok?
   end
 end
