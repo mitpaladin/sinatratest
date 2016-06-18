@@ -5,7 +5,8 @@ require 'pg'
 require 'prolog/use_cases/summarise_content'
 require_relative '../config/environment.rb'
 
-DB = Sequel.postgres('sinatratest_db', user: 'sinatratest_db', host: 'localhost', port: 5432)
+DB = Sequel.postgres('sinatratest_db', user: 'sinatratest_db',
+                                       host: 'localhost', port: 5432)
 
 DB.create_table? :articles do
   primary_key :id

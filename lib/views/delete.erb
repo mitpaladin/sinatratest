@@ -2,7 +2,7 @@
   <p>Are you sure you want to delete the following article: <em>"<%= @article.body %>"</em>?</p>
   <form action="/<%= @article.id %>" method="post">
     <input type="hidden" name="_method" value="delete">
-    <input type="submit" value="Yes, Delete It!">
+    <input type="submit" value="Delete!">
     <a href="/<%= @article.id %>">Cancel</a>
   </form>
 <% else %>

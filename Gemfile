@@ -24,7 +24,7 @@ group :test do
   gem 'capybara_minitest_spec', '~> 1.0', '>= 1.0.5'
   gem 'guard-minitest', '~> 2.4', '>= 2.4.5'
   gem 'poltergeist', '~> 1.9', '>= 1.9.0'
-  gem 'rubocop', '0.35.1'
+  gem 'rubocop', '0.39'
   gem 'reek', '3.7'
   gem 'flay', '2.6'
   gem 'flog', '~> 4.3', '>= 4.3.2'
