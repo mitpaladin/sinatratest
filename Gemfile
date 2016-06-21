@@ -11,6 +11,10 @@ gem 'foreman', '~> 0.82', '>= 0.82.0'
 gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 gem 'shotgun', '~> 0.9', '>= 0.9.1'
 gem 'pg'
+gem 'rodauth'
+gem 'roda'
+gem 'bcrypt'
+gem 'rack_csrf'
 
 group :development do
 #  gem 'ruby_gntp', '~> 0.3', '>= 0.3.4'

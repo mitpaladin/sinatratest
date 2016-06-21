@@ -5,6 +5,18 @@ require 'flay_task'
 require 'flog'
 require 'flog_task'
 
+namespace :db do
+  desc "Run migrations"
+  task :migrate do |t, args|
+    require "sequel"
+    Sequel.extension :migration
+    db = Sequel.postgres('sinatratest_db', user: 'sinatratest_db',
+                                       host: 'localhost', port: 5432)
+    puts "Migrating to latest"
+    Sequel::Migrator.run(db, "db/migrations")
+  end
+end
+
 Rake::TestTask.new(:spec) do |t|
   t.libs = ["lib", "spec"]
   t.name = "spec"
