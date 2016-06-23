@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sequel'
 require 'pg'
+require 'omniauth'
 require 'prolog/use_cases/summarise_content'
 require_relative '../config/environment.rb'
 
@@ -21,6 +22,12 @@ end
 
 # Sequel model based articles
 class Articles < Sequel::Model
+end
+
+# Sinatra app using OmniAuth plugin and default strategy
+class Sinatratest < Sinatra::Base
+  use Rack::Session::Cookie
+  use OmniAuth::Strategies::Developer
 end
 
 # Intermediate repo object with keywords as array rather than String
