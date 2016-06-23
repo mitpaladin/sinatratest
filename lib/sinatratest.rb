@@ -2,14 +2,14 @@ require 'rubygems'
 require 'sinatra'
 require 'sequel'
 require 'pg'
-# require 'roda'
-# require 'bcrypt'
+require 'roda'
+require 'bcrypt'
 require 'prolog/use_cases/summarise_content'
 require_relative '../config/environment.rb'
 
-# use Rack::Session::Cookie, secret: File.file?('sinatratest.secret') ?
-#                           File.read('sinatratest.secret') :
-#                           (ENV['SINATRATEST_SECRET'] || SecureRandom.hex(20))
+use Rack::Session::Cookie, secret: File.file?('sinatratest.secret') ?
+                           File.read('sinatratest.secret') :
+                           (ENV['SINATRATEST_SECRET'] || SecureRandom.hex(20))
 
 DB = Sequel.postgres('sinatratest_db', user: 'sinatratest_db',
                                        host: 'localhost', port: 5432)
@@ -30,45 +30,52 @@ class Articles < Sequel::Model
 end
 
 # Rodauth integration
-# class RodauthApp < Roda
-#  db = Sequel.postgres('sinatratest_db', user: 'sinatratest_db',
-#                                         host: 'localhost', port: 5432)
-#  db.drop_table(:accounts, cascade: true)
+class RodauthApp < Roda
+  db = Sequel.postgres('sinatratest_db', user: 'sinatratest_db',
+                                         host: 'localhost', port: 5432)
+  db.drop_table(:accounts, cascade: true)
 
-#  unless db.table_exists?(:accounts)
-#    db.create_table(:accounts) do
-#      primary_key :id
-#      String :email, unique: true, null: false
-#      String :password_hash, null: false
-#    end
+  unless db.table_exists?(:accounts)
+    db.create_table(:accounts) do
+      primary_key :id
+      String :email, unique: true, null: false
+      String :password_hash, null: false
+    end
 
 # Add a demo account for testing, since we aren't allowing users to create
 # their own accounts.
-#    db[:accounts].insert(email: 'demo',
-#                         password_hash: BCrypt::Password.create('demo'))
-#  end
+    db[:accounts].insert(email: 'demo',
+                         password_hash: BCrypt::Password.create('demo'))
+  end
 
-#  plugin :middleware
-#  plugin :render, views: 'lib/views'
-#  plugin :rodauth do
-#    enable :login
-#    after_login do
-#      puts 'successful login!'
-#      request.redirect('/')
-#    end
-#  end
+  plugin :middleware
+  plugin :render, views: 'lib/views'
+  plugin :rodauth do
+    enable :login
+    login_redirect('/')
+  end
 
-#  alias erb render
+  alias erb render
 
-#  route do |r|
-#    r.rodauth
+  route do |r|
+    r.rodauth
 
-# Force all users to login before accessing Sinatratest
-#    rodauth.require_authentication
-#   end
-# end
+    r.get do
+      artrepo = ArticleRepo.new(Articles.all)
+      sumobj = Prolog::UseCases::SummariseContent.new(repository: artrepo)
+      rethash = sumobj.call
+      @articles = rethash[:articles]
+      @title = 'All Articles'
+      @kbf = rethash[:keywords_by_frequency]
+      erb :home
+    end
 
-# use RodauthApp
+    # Force all users to login before accessing Sinatratest
+    rodauth.require_authentication
+  end
+end
+
+use RodauthApp
 
 # Intermediate repo object with keywords as array rather than String
 class ArticleRepo
