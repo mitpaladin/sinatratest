@@ -51,7 +51,11 @@ class RodauthApp < Roda
   plugin :middleware
   plugin :render, views: 'lib/views'
   plugin :rodauth do
+    db db
     enable :login
+    accounts_table :accounts
+    login_column :email
+    account_password_hash_column :password_hash
     login_redirect('/')
   end
 
